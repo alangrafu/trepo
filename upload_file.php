@@ -78,6 +78,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 <?php
+include_once('userid.inc');
 $allowedExts = array("zip");
 $maxFileSize=20*1024*1024;
 $extension = end(explode(".", $_FILES["file"]["name"]));
@@ -89,7 +90,8 @@ if (/*($_FILES["file"]["type"] == "application/zip") && */ ($_FILES["file"]["siz
   else
     {
         $extensionKey = array_search($extension, $allowedExts);
-      $newname = md5(file_get_contents($_FILES["file"]["tmp_name"])).".".$allowedExts[$extensionKey];
+      $userInfo = getUserFromTweetsZIP($_FILES["file"]["tmp_name"]);//md5(file_get_contents($_FILES["file"]["tmp_name"])).".".$allowedExts[$extensionKey];
+      $newname = $userInfo[0].".".$allowedExts[$extensionKey];
     if (file_exists("upload/" . $newname))
       {
       echo "This file already exists.";
