@@ -103,7 +103,7 @@
 		<form action="upload_file.php" id="the_form"  method="post" enctype="multipart/form-data">
 		<p><input type="file" name="file" id="file" val=""></p>
 		<p><input name='toc' id='toc' type='checkbox'/> <strong>I voluntarily give my tweet archive for research purposes under the <a target="_blank" href='http://creativecommons.org/licenses/by-nc/3.0/'>Creative Commons Attribution-NonCommercial 3.0</a> license.</strong></p> 
-		<input type="submit" name="submit1" id="submit1" value="Submit" class="formstyletwo">
+		<input type="submit" name="submit1" id="submit1" value="Submit" class="dis">
 		</form>
 		</div>
     </aside>
@@ -118,6 +118,21 @@
 <!-- SLIDESHOW SCRIPT START -->
 
 <script type="text/javascript">
+$(document).ready(function(){
+        $("#submit1").attr("disabled", true);
+        $("#the_form").on('change', function(){
+                if ($('#file').val() != "" && $("#toc").is(":checked")) { 
+        $("#submit1").attr("disabled", false).removeClass('dis').addClass('formstyletwo');
+        }else{
+        $("#submit1").attr("disabled", true).removeClass('formstyletwo').addClass('dis');
+        }
+        });
+        $("#submit1").on('click', function(){
+                                   $("#submit1").attr("disabled", true).attr("value", "Uploading...");
+                                   $("#the_form").submit();
+        });
+        
+});
 $("#slider").carouFredSel({
 	responsive	: true,
 	scroll		: {

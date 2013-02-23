@@ -35,7 +35,7 @@ font-size:18px;
 <body>
 <?php
 $allowedExts = array("zip");
-$maxFileSize=10*1024*1024;
+$maxFileSize=20*1024*1024;
 $extension = end(explode(".", $_FILES["file"]["name"]));
 if (($_FILES["file"]["type"] == "application/zip") && ($_FILES["file"]["size"] < $maxFileSize) && in_array($extension, $allowedExts)){
   if ($_FILES["file"]["error"] > 0)
