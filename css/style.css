@@ -64,8 +64,8 @@ nav{
 
 nav ul li{
 	display:block;
-	width:25%;
-	float:left;
+	width:33%;
+	float:right;
 	text-align:center;	
 }
 
@@ -182,6 +182,17 @@ header h2{
 	font-size:110%;
 	line-height:140%;
 	margin-bottom:10px;
+	text-align:justify;
+}
+
+.wide h3{
+	font-family: 'Open Sans', sans-serif;
+	font-size:180%;
+	font-weight:bold;
+	text-align:center;
+	color:#1C2C5A;
+	margin-bottom:5%;
+	text-shadow: 0 1px 1px #dadada;
 }
 
 .wide2{
@@ -259,11 +270,23 @@ header h2{
 	margin-bottom:10px;
 }
 
+.right ul{
+	font-family: 'Gentium Book Basic', serif;
+	font-size:110%;
+	line-height:140%;
+	margin-bottom:10px;
+	margin-left:1cm;
+}
+
 .right p a{
 	color:#1C2C5A;
 	text-decoration:none;
 }
 
+.right ul a{
+	color:#1C2C5A;
+	text-decoration:none;
+}
 
 /* ----------------------- WORK LINKS START ------------------------- */
 #work{
@@ -410,8 +433,8 @@ footer{
 
 .formstyletwo { 
 	color: #1C2C5A;
-	font-family:Lato, Arial, Helvetica, sans-serif;
-	font-size:15px;
+	font-family: 'Gentium Book Basic', serif;
+	font-size:110%;
 	font-weight:bold;
 	text-align:left;
 	width:20%;
@@ -613,7 +636,3 @@ input:focus, input.focused, textarea:focus, textarea.focused {  color: #3e3e3e; 
 		font-size:40%;
 	}
 }
-
-
-	
-	
