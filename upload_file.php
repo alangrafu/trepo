@@ -91,7 +91,7 @@ if (/*($_FILES["file"]["type"] == "application/zip") && */ ($_FILES["file"]["siz
     {
         $extensionKey = array_search($extension, $allowedExts);
       $userInfo = getUserFromTweetsZIP($_FILES["file"]["tmp_name"]);//md5(file_get_contents($_FILES["file"]["tmp_name"])).".".$allowedExts[$extensionKey];
-      $newname = $userInfo[0].".".$allowedExts[$extensionKey];
+      $newname = $userInfo['id'].".".$allowedExts[$extensionKey];
     if (file_exists("upload/" . $newname))
       {
       echo "This file already exists.";
