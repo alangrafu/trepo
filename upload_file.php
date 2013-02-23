@@ -1,3 +1,23 @@
+<!DOCTYPE HTML>
+<!-- ............................. -->
+<!-- ............................. -->
+<!-- ..... LIQUID GEM V.1.0. ..... -->
+<!-- ............................. -->
+<!-- ............................. -->
+<!-- ............................. -->
+<!-- ............................. -->
+<!-- .... MADE BY CHRIS BIRON .... -->
+<!-- ............................. -->
+<!-- ............................. -->
+<!-- ............................. -->
+<!-- ............................. -->
+<!-- Liquid Gem is licensed under 
+          Creative Commons 
+ Attribution-NonCommercial-ShareAlike
+       3.0 Unported License -->
+<!-- ............................. -->
+<!-- ............................. -->
+<!-- DON'T TOUCH THIS SECTION -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -22,17 +42,41 @@
 <script type="text/javascript" src="scripts/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="scripts/jquery.form.js"></script> 
 <script type="text/javascript" src="scripts/scripts.js"></script> 
-<style>
-input{
-background:#ccc;
-  line-height:24px;
-  display:block;
-font-size:18px;
-}
-</style>
 </head>
 <!-- END OF DON'T TOUCH -->
 <body>
+<div class="wrapper">
+  <div id="top">
+        <div id="logo">
+            <h1 id="logotitle">#Tweets4Science</h1>	<!-- Logo text -->
+        </div><!--/logo-->
+    
+        <nav>	<!-- Navigation Start -->
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>      
+        </nav>	<!-- Navigation End -->
+    </div><!--/top-->
+    
+    
+    <hr/><!-- Horizontal Line -->
+    
+    <section id="slideshow">	<!-- Slideshow Start -->
+        <div class="html_carousel">
+			<div id="slider">
+				<div class="slide">
+					<img src="images/tweets4science-banner.png" width="3000" height="783" alt="image 1"/><!-- Replace these images with your own but make sure they are 3000px wide and 783px high or the same ration -->
+				</div><!--/slide-->
+			</div><!--/slider-->
+			<div class="clearfix"></div>
+		</div><!--/html_carousel-->
+    </section>	<!-- Slideshow End -->
+    
+    <aside id="message" class="wide2">
+	<h3>
+
+///////////////////////////////////////////////////////////////////////////////
+
 <?php
 $allowedExts = array("zip");
 $maxFileSize=10*1024*1024;
@@ -40,7 +84,7 @@ $extension = end(explode(".", $_FILES["file"]["name"]));
 if (($_FILES["file"]["type"] == "application/zip") && ($_FILES["file"]["size"] < $maxFileSize) && in_array($extension, $allowedExts)){
   if ($_FILES["file"]["error"] > 0)
     {
-    echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
+    echo "Return Code: " . $_FILES["file"]["error"];
     }
   else
     {
@@ -48,13 +92,12 @@ if (($_FILES["file"]["type"] == "application/zip") && ($_FILES["file"]["size"] <
       $newname = md5(file_get_contents($_FILES["file"]["tmp_name"])).".".$allowedExts[$extensionKey];
     if (file_exists("upload/" . $newname))
       {
-      echo "<h3>This file already exists.</h3>";
+      echo "This file already exists.";
       }
     else
       {
-      move_uploaded_file($_FILES["file"]["tmp_name"],
-      "upload/" . $newname);
-      echo "<h3>Successfully stored. Thank you!</h3>";
+      move_uploaded_file($_FILES["file"]["tmp_name"],"upload/" . $newname);
+      echo "Successfully stored. Thank you!";
       }
     }
   }
@@ -63,5 +106,39 @@ else
   echo "Invalid file";
   }
 ?>
+
+///////////////////////////////////////////////////////////////////////////////
+
+</h3>
+    </aside>
+
+	<div class="clearfix"></div> <!-- Text Section End -->
+	<hr>
+	<section id="bottom" class="wide"> <!-- Last Words Section Start -->
+    	<p><a href="http://liquidgem.birondesign.com/">Design based on Liquid Gem template by BironDesign</a></p>.
+    </section><!-- Last Words Section End-->
+</div>
+
+<!-- SLIDESHOW SCRIPT START -->
+
+<script type="text/javascript">
+$("#slider").carouFredSel({
+	responsive	: true,
+	scroll		: {
+		fx			: "crossfade",
+		easing		: "swing",
+		duration	: 1000,
+		
+	},
+	items		: {
+		visible		: 1,
+		height		: "27%"
+	}
+});
+</script>
+
+<!-- SLIDESHOW SCRIPT END -->
+
 </body>
 </html>
+<!-- Thanks for looking at Liquid Gem! I hope you find it useful :) -->
