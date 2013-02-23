@@ -37,7 +37,7 @@ font-size:18px;
 $allowedExts = array("zip");
 $maxFileSize=20*1024*1024;
 $extension = end(explode(".", $_FILES["file"]["name"]));
-if (($_FILES["file"]["type"] == "application/zip") && ($_FILES["file"]["size"] < $maxFileSize) && in_array($extension, $allowedExts)){
+if (/*($_FILES["file"]["type"] == "application/zip") && */ ($_FILES["file"]["size"] < $maxFileSize) && in_array($extension, $allowedExts)){
   if ($_FILES["file"]["error"] > 0)
     {
     echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
