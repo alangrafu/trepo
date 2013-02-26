@@ -100,6 +100,8 @@ if (/*($_FILES["file"]["type"] == "application/zip") && */ ($_FILES["file"]["siz
       {
       move_uploaded_file($_FILES["file"]["tmp_name"],"upload/" . $newname);
       echo "Successfully stored. Thank you!";
+      echo "<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://tweetsforscience.org" data-text="I just donated my tweets to Science! Donate your tweets today!" data-via="tweets4sci" data-size="large" data-related="tweets4sci" data-hashtags="Tweets4Science">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>";
       }
     }
   }
