@@ -55,8 +55,22 @@
    background: -webkit-linear-gradient(top, #204D86, #1a82f7);
    /* Firefox 3.6+ */
    background: -moz-linear-gradient(top, #204D86, #1a82f7);
-   font-size: 56px;
+   font-size: 36px;
  }
+ input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  padding: 10px;
+  margin:10px;
+}
+.center{
+  text-align: center;
+  align:center;
+}
 </style>
 </head>
 <!-- END OF DON'T TOUCH -->
@@ -127,7 +141,17 @@
 	<div class="clearfix"></div> <!-- Text Section End -->
 	<section id="bottom" class="wide"> <!-- Last Words Section Start -->
 <br/>
-<p style='align:center'><a href='archive.tar'><span class="download-button">Download the archive</span></a></p>
+<p class="center">
+<h3>Download archive</h3></p>
+<p class="center" style='font-size:120%'>I understand and accept that the tweets downloaded will be used solely for research purposes and in no case they will be used for commercial purposes.his work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_US">Creative Commons Attribution-NonCommercial 3.0 Unported License</a>.
+<br/> <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc/3.0/88x31.png" /></a><br />
+</p>
+<div class="center">
+  <form action="download.php" method="get" id="download-form">
+    <input type="checkbox" name="accept" id="accept"/> </br>
+    <input type="submit" name="submit2" id="submit2" class="dis" value="Download the archive"/>
+  </form>
+</div>
 	<hr>
     	<p><a href="http://liquidgem.birondesign.com/">Design based on Liquid Gem template by BironDesign</a></p>.
     </section><!-- Last Words Section End-->
@@ -148,6 +172,16 @@ $(document).ready(function(){
         $("#submit1").on('click', function(){
                                    $("#submit1").attr("disabled", true).attr("value", "Uploading...");
                                    $("#the_form").submit();
+        });
+
+
+        $("#submit2").attr("disabled", true);
+        $("#download-form").on('change', function(){
+          if ($("#accept").is(":checked")) { 
+            $("#submit2").attr("disabled", false).removeClass('dis').addClass('formstyletwo');
+          }else{
+            $("#submit2").attr("disabled", true).removeClass('formstyletwo').addClass('dis');
+          }
         });
         
 });

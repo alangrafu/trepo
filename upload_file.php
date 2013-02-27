@@ -14,14 +14,14 @@
 <!-- Liquid Gem is licensed under 
           Creative Commons 
  Attribution-NonCommercial-ShareAlike
-       3.0 Unported License -->
-<!-- ............................. -->
-<!-- ............................. -->
-<!-- DON'T TOUCH THIS SECTION -->
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+ 3.0 Unported License -->
+ <!-- ............................. -->
+ <!-- ............................. -->
+ <!-- DON'T TOUCH THIS SECTION -->
+ <html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 <!--[if lt IE 9]>
 <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
@@ -45,81 +45,89 @@
 </head>
 <!-- END OF DON'T TOUCH -->
 <body>
-<div class="wrapper">
-  <div id="top">
-        <div id="logo">
-            <h1 id="logotitle">#Tweets4Science</h1>	<!-- Logo text -->
-        </div><!--/logo-->
-    
-        <nav>	<!-- Navigation Start -->
-            <ul>
-                <li><a href="index.html">Home</a></li>
-            </ul>      
-        </nav>	<!-- Navigation End -->
+  <div class="wrapper">
+    <div id="top">
+      <div id="logo">
+        <h1 id="logotitle">#Tweets4Science</h1>	<!-- Logo text -->
+      </div><!--/logo-->
+
+      <nav>	<!-- Navigation Start -->
+        <ul>
+          <li><a href="index.html">Home</a></li>
+        </ul>      
+      </nav>	<!-- Navigation End -->
     </div><!--/top-->
     
     
     <hr/><!-- Horizontal Line -->
     
     <section id="slideshow">	<!-- Slideshow Start -->
-        <div class="html_carousel">
-			<div id="slider">
-				<div class="slide">
-					<img src="images/tweets4science-banner.png" width="3000" height="783" alt="image 1"/><!-- Replace these images with your own but make sure they are 3000px wide and 783px high or the same ration -->
-				</div><!--/slide-->
-			</div><!--/slider-->
-			<div class="clearfix"></div>
-		</div><!--/html_carousel-->
-    </section>	<!-- Slideshow End -->
-    
-    <aside id="message" class="wide2">
-	<h3>
+      <div class="html_carousel">
+       <div id="slider">
+        <div class="slide">
+         <img src="images/tweets4science-banner.png" width="3000" height="783" alt="image 1"/><!-- Replace these images with your own but make sure they are 3000px wide and 783px high or the same ration -->
+       </div><!--/slide-->
+     </div><!--/slider-->
+     <div class="clearfix"></div>
+   </div><!--/html_carousel-->
+ </section>	<!-- Slideshow End -->
 
-<!-------------------------------------------------------------->
+ <aside id="message" class="wide2">
+   <h3>
 
-<?php
-include_once('userid.inc');
-$allowedExts = array("zip");
-$maxFileSize=20*1024*1024;
-$extension = end(explode(".", $_FILES["file"]["name"]));
-if (/*($_FILES["file"]["type"] == "application/zip") && */ ($_FILES["file"]["size"] < $maxFileSize) && in_array($extension, $allowedExts)){
-  if ($_FILES["file"]["error"] > 0)
-    {
-    echo "Return Code: " . $_FILES["file"]["error"];
-    }
-  else
-    {
+    <!-------------------------------------------------------------->
+
+    <?php
+    include_once('userid.inc');
+    $allowedExts = array("zip");
+    $maxFileSize=20*1024*1024;
+    $extension = end(explode(".", $_FILES["file"]["name"]));
+    if (/*($_FILES["file"]["type"] == "application/zip") && */ ($_FILES["file"]["size"] < $maxFileSize) && in_array($extension, $allowedExts)){
+      if ($_FILES["file"]["error"] > 0){
+        echo "Return Code: " . $_FILES["file"]["error"];
+      }else{
         $extensionKey = array_search($extension, $allowedExts);
       $userInfo = getUserFromTweetsZIP($_FILES["file"]["tmp_name"]);//md5(file_get_contents($_FILES["file"]["tmp_name"])).".".$allowedExts[$extensionKey];
-      $newname = $userInfo['id'].".".$allowedExts[$extensionKey];
-    if (file_exists("upload/" . $newname))
-      {
-      echo "This file already exists.";
-      }
-    else
-      {
-      move_uploaded_file($_FILES["file"]["tmp_name"],"upload/" . $newname);
-      echo "Successfully stored. Thank you!";
+      if($userInfo === false){
+        echo "Something wrong happened with the file. Please make sure you are uploading the file called <tt>tweets.zip</tt> obtained from Twitter, without modifications.";
+      }else{
+        $newname = $userInfo['id'].".".$allowedExts[$extensionKey];
+        if (file_exists("upload/" . $newname)){
+          echo "This file already exists. File successfully updated";
+          move_uploaded_file($_FILES["file"]["tmp_name"],"upload/" . $newname);
+
+        }
+        else{
+          move_uploaded_file($_FILES["file"]["tmp_name"],"upload/" . $newname);
+          echo "Successfully stored. Thank you!";
+          $myFile = "upload/CONTRIBUTORS";
+          $fh = fopen($myFile, 'a');
+          if (flock($fh, LOCK_EX)) {
+            fwrite($fh, "@".$userInfo['screen_name']."\n");
+            fflush($fh);
+            flock($fh, LOCK_UN);
+          }
+          fclose($fh);
+
+        }
       }
     }
+  }else{
+    echo "Invalid file";
   }
-else
-  {
-  echo "Invalid file";
-  }
-      echo '<hr/><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://tweetsforscience.org" data-text="I just donated my tweets to Science! Donate your tweets today!" data-via="tweets4sci" data-size="large" data-related="tweets4sci" data-hashtags="Tweets4Science">Tweet</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
-?>
+  echo '<hr/><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://tweetsforscience.org" data-text="I just donated my tweets to Science! Donate your tweets today!" data-via="tweets4sci" data-size="large" data-related="tweets4sci" data-hashtags="Tweets4Science">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
+  ?>
 
 
 </h3>
-    </aside>
+</aside>
 
-	<div class="clearfix"></div> <!-- Text Section End -->
-	<hr>
-	<section id="bottom" class="wide"> <!-- Last Words Section Start -->
-    	<p><a href="http://liquidgem.birondesign.com/">Design based on Liquid Gem template by BironDesign</a></p>.
-    </section><!-- Last Words Section End-->
+<div class="clearfix"></div> <!-- Text Section End -->
+<hr>
+<section id="bottom" class="wide"> <!-- Last Words Section Start -->
+ <p><a href="http://liquidgem.birondesign.com/">Design based on Liquid Gem template by BironDesign</a></p>.
+</section><!-- Last Words Section End-->
 </div>
 
 <!-- SLIDESHOW SCRIPT START -->
@@ -143,15 +151,15 @@ $("#slider").carouFredSel({
 <!-- SLIDESHOW SCRIPT END -->
 <script type="text/javascript">
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-38781157-1']);
-  _gaq.push(['_trackPageview']);
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-38781157-1']);
+_gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
 
 </script>
 </body>

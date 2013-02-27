@@ -9,7 +9,7 @@ function getUserFromTweetsZIP ($pathToZipFile) {
 
 	$z=zip_open($pathToZipFile);
 
-	if ($z) {
+	if (is_resource($z)) {
 		while ($entry = zip_read($z)) {
 			$name=zip_entry_name($entry);
 			if (strpos($name,"user_details.js")!==false) {
