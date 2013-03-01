@@ -6,4 +6,4 @@ cd  $DIR/../upload
 TOTAL=`ls *.zip|wc -l`
 tar cvf $DIR/../_archive.tar *.zip CONTRIBUTORS LICENSE README
 mv $DIR/../_archive.tar $DIR/../archive.tar 
-echo "Currently, $TOTAL people has donated their tweets" > $DIR/../currentNumber.txt 
+echo "Currently, $TOTAL people have donated their tweets" > $DIR/../currentNumber.txt 
