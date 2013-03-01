@@ -125,6 +125,7 @@
     <aside id="donate" class="left"> <!-- Text Section Start -->
 		<h3>Donate your tweet archive</h3>
     	<p>Since late 2012 any Twitter user can request access to his or her Twitter archive to then download a ZIP file with all the tweets s/he has published.</p><p>Twitter's Terms of Service grant the users to retain their rights to any content submitted, posted or displayed through Twitter services and, therefore, users are free to do as they please with such data. </p><p>Hence, you can donate such data using the form on the right.</p>
+        <p id="current" style="font-weight:bold;font-size:150%"></p>
     </aside>
     
 	<aside id="contact" class="right">
@@ -184,9 +185,17 @@ $(document).ready(function(){
             $("#submit2").attr("disabled", true).removeClass('formstyletwo').addClass('dis');
           }
         });
+        $.ajax({
+                url: "currentNumber.txt",
+                dataType: "html",
+                type: 'GET',
+                success: function(data){
+                  $("#current").html(data);
+                    }
+               });
         
 });
-$("#slider").carouFredSel({
+/*$("#slider").carouFredSel({
 	responsive	: true,
 	scroll		: {
 		fx			: "crossfade",
@@ -198,7 +207,7 @@ $("#slider").carouFredSel({
 		visible		: 1,
 		height		: "27%"
 	}
-});
+});*/
 </script>
 
 <!-- SLIDESHOW SCRIPT END -->
